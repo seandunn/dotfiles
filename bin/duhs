@@ -1,0 +1,1 @@
+du -k $@ * | sort -nr | cut -f2 | xargs du -sh
