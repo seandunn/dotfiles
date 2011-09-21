@@ -2,7 +2,7 @@
 	name = Sean Dunn
 	email = sd9@sanger.ac.uk
 [core]
-	excludesfile = /Users/sd9/.gitignore
+	excludesfile = ~/.dotfiles/gitignore
 [color]
   ui = auto
 	branch = auto
