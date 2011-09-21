@@ -1,0 +1,13 @@
+[user]
+	name = Sean Dunn
+	email = sd9@sanger.ac.uk
+[core]
+	excludesfile = /Users/sd9/.gitignore
+[color]
+  ui = auto
+	branch = auto
+	diff = auto
+[core]	
+	pager = less -FXRS
+[git-tmbundle]
+	gitx-path = /usr/local/bin/gitx
