@@ -10,52 +10,41 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/mysql/bin:~/bin:~/git-hoo
 # alias zless=$PAGER
 
 
-export HOMEBREW_GIT_VIA_HTTP=1
-
 # RSense...
-export RSENSE_HOME="/Users/sd9/opt/rsense-0.3"
-
-# Oracle setup
-export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK"
-export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
-export DYLD_LIBRARY_PATH="/opt/oracle/instantclient"
-export SQLPATH="/opt/oracle/instantclient"
-export TNS_ADMIN="/opt/oracle/instantclient/Config"
-export NLS_LANG="AMERICAN_AMERICA.UTF8"
-export PATH=$PATH:$DYLD_LIBRARY_PATH
+# export RSENSE_HOME="/Users/sd9/opt/rsense-0.3"
 
 # Maxime's Rake and Capistrano completion code...
-source ~/.cap-complete.bash
-source ~/.rake-complete.bash
+source ~/.dotfiles/bin/cap-complete.bash
+source ~/.dotfiles/bin/rake-complete.bash
 
 # Z.sh fuzzy directory name completion
 # source ~/z.sh
 
-# If we're working behind a proxy configuration then this will pick it up
-function prox() {
-  export http_proxy=`proxy-config -h`
-  export HTTP_PROXY=`proxy-config -h`
-  export https_proxy=`proxy-config -s`
-  export ftp_proxy=`proxy-config -f`
+# # If we're working behind a proxy configuration then this will pick it up
+# function prox() {
+#   export http_proxy=`proxy-config -h`
+#   export HTTP_PROXY=`proxy-config -h`
+#   export https_proxy=`proxy-config -s`
+#   export ftp_proxy=`proxy-config -f`
+# 
+#   if [ -z "${http_proxy}" ] ; then
+#     unset http_proxy
+#   fi
+#   if [ -z "${https_proxy}" ] ; then
+#     unset https_proxy
+#   fi
+#   if [ -z "${ftp_proxy}" ] ; then
+#     unset ftp_proxy
+#   fi
+# }
 
-  if [ -z "${http_proxy}" ] ; then
-    unset http_proxy
-  fi
-  if [ -z "${https_proxy}" ] ; then
-    unset https_proxy
-  fi
-  if [ -z "${ftp_proxy}" ] ; then
-    unset ftp_proxy
-  fi
-}
-
-prox
+# prox
 # Tempory measure as proxy-config doesn't seem to be working
 # export http_proxy='wwwcache.sanger.ac.uk:3128'
-export ALL_PROXY=$http_proxy
+# export ALL_PROXY=$http_proxy
 
 # Git completion and state
-source ~/.git-completion.bash
+source ~/.dotfiles/bin/git-completion.bash
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -83,12 +72,10 @@ alias gb='git branch --color'
 alias gd='git diff --color'
 alias gl='git log --color --graph'
 # Rails
-alias sv='./script/server'
-alias sc='./script/console'
 alias dc='./script/dbconsole'
 alias ql='qlmanage -p "$@" >& /dev/null'
-alias rails='rails_wrapper.sh'
+alias rails='~/.dotfiles/bin/rails_wrapper.sh'
 # Editor
 # export EDITOR='mate -w'
 export EDITOR='vi'
-if [[ -s /Users/sd9/.rvm/scripts/rvm ]] ; then source /Users/sd9/.rvm/scripts/rvm ; fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
