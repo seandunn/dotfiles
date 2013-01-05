@@ -71,7 +71,7 @@ export ALL_PROXY=$http_proxy
 
 alias tmux='tmux -2'
 alias free="echo 'Seans free alias:-'; top -l 1|grep 'PhysMem'"
-alias rails='rails_wrapper.sh'
+alias rails='dotfiles/bin/rails_wrapper.sh'
 
 setopt interactivecomments
 
