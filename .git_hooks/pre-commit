@@ -1,0 +1,13 @@
+#!/bin/sh
+echo "Checking Ruby files for rougue merge markers..."
+ack_output=`ack "^<<<<<<<|^>>>>>>>|^=======$"`
+
+if  [ "$ack_output" != "" ]
+then
+  echo "\nSTOP!  It looks like there's merge markers left in this commit... :(\n\n"
+  echo $ack_output
+  
+  echo "\n\n Please resolve these before continuing the commit."
+  exit 1
+fi
+echo "...Ruby files free of merge makers - other files NOT checked"
