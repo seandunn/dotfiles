@@ -11,3 +11,11 @@
 	pager = less -FXRS
 [git-tmbundle]
 	gitx-path = /usr/local/bin/gitx
+[alias]
+	lg = log --graph --pretty=format:'%C(bold blue)%h%Creset -%C(bold red)%d%Creset %s \n%C(blue)(%cr) %Creset%C(blue)<%an>%Creset\n' --abbrev-commit --date=relative
+
+[url "git://github.com/"]
+  insteadOf = gh:
+[url "git@github.com:"]
+  insteadOf = ghs:
+
