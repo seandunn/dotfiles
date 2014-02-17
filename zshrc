@@ -29,7 +29,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rvm ruby)
+plugins=(git rvm ruby zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -45,33 +45,8 @@ export EDITOR='vi'
 export DISABLE_AUTO_TITLE=true
 
 
-# If we're working behind a proxy configuration then this will pick it up
-function prox() {
-  export http_proxy=`proxy-config-tool -h`
-  export HTTP_PROXY=`proxy-config-tool -h`
-  export https_proxy=`proxy-config-tool -s`
-  export HTTPS_PROXY=`proxy-config-tool -s`
-  export ftp_proxy=`proxy-config-tool -f`
-
-  if [ -z "${http_proxy}" ] ; then
-    unset http_proxy
-  fi
-  if [ -z "${https_proxy}" ] ; then
-    unset https_proxy
-  fi
-  if [ -z "${ftp_proxy}" ] ; then
-    unset ftp_proxy
-  fi
-}
-
-prox
-# Tempory measure as proxy-config-tool doesn't seem to be working
-# export http_proxy='wwwcache.sanger.ac.uk:3128'
-export ALL_PROXY=$http_proxy
-
 alias tmux='tmux -2'
 alias free="echo 'Seans free alias:-'; top -l 1|grep 'PhysMem'"
-alias rails='~/dotfiles/bin/rails_wrapper.sh'
 
 setopt interactivecomments
 
