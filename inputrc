@@ -10,17 +10,3 @@ set completion-ignore-case On
 # Don't complete hidden files unless specified as such
 set match-hidden-files Off
 
-# Remap for Colemak...
-$if mode=vi
- set keymap vi-move
-
- # "h": backward-char
- "n": next-history
- "e": previous-history
- "i": forward-char
- "k": vi-search-again
- "l": vi-insertion-mode
- "j": vi-end-word
-
-$endif
-
