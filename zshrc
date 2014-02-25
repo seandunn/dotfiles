@@ -41,6 +41,7 @@ export VIMCLOJURE_SERVER_JAR="$HOME/lib/vimclojure/server-2.3.0.jar"
 
 bindkey -v
 export EDITOR='vi'
+export TERM=xterm-256color-italic
 
 export DISABLE_AUTO_TITLE=true
 
@@ -49,6 +50,8 @@ alias tmux='tmux -2'
 alias free="echo 'Seans free alias:-'; top -l 1|grep 'PhysMem'"
 
 setopt interactivecomments
+
+source $(brew --prefix nvm)/nvm.sh
 
 # RVM support...
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
