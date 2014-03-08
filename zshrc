@@ -48,6 +48,7 @@ export DISABLE_AUTO_TITLE=true
 
 alias tmux='tmux -2'
 alias free="echo 'Seans free alias:-'; top -l 1|grep 'PhysMem'"
+alias nodeunit="node --harmony /usr/local/bin/nodeunit"
 
 setopt interactivecomments
 
