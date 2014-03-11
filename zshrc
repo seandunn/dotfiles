@@ -29,7 +29,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rvm ruby zsh-syntax-highlighting)
+plugins=(osx git rvm ruby rake rails zsh-syntax-highlighting )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,5 +54,5 @@ setopt interactivecomments
 
 source $(brew --prefix nvm)/nvm.sh
 
-# RVM support...
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
