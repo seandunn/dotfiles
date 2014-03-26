@@ -2,7 +2,7 @@
 	name = Sean Dunn
 	email = seanpeterdunn@gmail.com
 [core]
-	excludesfile = ~/.dotfiles/gitignore
+	excludesfile = ~/.cvsignore
 [color]
   ui = auto
 	branch = auto
@@ -25,3 +25,6 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
