@@ -52,6 +52,7 @@ alias nodeunit="node --harmony /usr/local/bin/nodeunit"
 
 setopt interactivecomments
 
+export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
 
