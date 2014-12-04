@@ -1,0 +1,393 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'bling/vim-airline'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'fatih/vim-go'
+Plugin 'godlygeek/tabular'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ledger/vim-ledger'
+Plugin 'matchit.zip'
+Plugin 'mhinz/vim-tmuxify'
+Plugin 'mxw/vim-jsx'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'sjl/gundo.vim.git'
+Plugin 'sjl/vitality.vim'
+Plugin 'tomtom/tcomment_vim'
+" Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+noremap j gj
+noremap k gk
+map <C-e> :
+imap <C-e> <esc>:
+
+set mouse=a
+set selectmode=
+set mousehide
+
+" no beeping!
+set vb t_vb=
+set number
+set ruler
+
+syntax enable
+set synmaxcol=200
+set scrolloff=1
+set lazyredraw
+
+" Reload changing files
+set autoread
+
+" Whitespace stuff
+set wrap
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+" set list listchars=tab:\ \ ,trail:·
+set virtualedit=block
+
+" Add symbols that count as part of Keywords...
+set iskeyword+=!,?,@
+
+" Code folding
+set nofoldenable
+
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Tab completion
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc
+set wildignore+=node_modules
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.scssc
+
+set wildchar=<Tab> wildmenu wildmode=full
+
+" Status bar
+set laststatus=2
+
+" Splits should be created in the same way as every other gui!
+set fillchars=diff:⣿,vert:│
+set splitright
+set splitbelow
+
+" When switching to a buffer move the first open window with the buffer
+" in...
+set switchbuf=useopen
+
+" Set leader to <space> as it's the only key you have two
+" dedicated digits for!
+let mapleader = " "
+
+" Remember last location in file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal g'\"" | endif
+endif
+
+function! s:setupWrapping()
+set wm=2
+set textwidth=72
+endfunction
+
+function! s:setupMarkup()
+call s:setupWrapping()
+map <buffer> <Leader>p :Mm <CR>
+endfunction
+
+" make and python use real tabs
+au FileType make                                     set noexpandtab
+au FileType python                                   set noexpandtab
+
+" Thorfile, Rakefile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
+
+" md, markdown, and mk are markdown and define buffer-local preview
+au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
+
+au BufRead,BufNewFile *.txt call s:setupWrapping()
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" Use modeline overrides
+set modeline
+set modelines=10
+
+" Default color scheme
+if has("gui_running")
+  colorscheme sean_tm_twilight
+  " colorscheme eddie
+
+  " MacVIM shift+arrow-keys behavior (required in .vimrc)
+  let macvim_hig_shift_movement = 1
+
+  set cursorline
+  " Move line highlighting with window focus
+  autocmd WinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
+  set relativenumber
+
+else
+ set t_Co=256
+ set background=dark
+ let g:solarized_termtrans = 1
+ let g:solarized_italic=1
+  " colorscheme solarized
+
+  " let g:molokai_original = 1
+  let g:rehash256 = 1
+  colorscheme molokai
+ let g:airline_powerline_fonts=1
+  let g:airline_theme='molokai'
+
+
+  " Copy to the system clipboard
+  map <leader>c "+y
+  " Paste...
+  map <leader>v "+p
+endif
+
+"  set cursorline
+"  " Move line highlighting with window focus
+"  autocmd WinEnter * set cursorline
+"  autocmd WinLeave * set nocursorline
+
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" old vim-powerline symbols
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '│'
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '│'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = 'ro'
+let g:airline_symbols.linenr = '⭡'
+
+
+" Open .vimrc in a new tab
+nmap <leader>,v :tabedit $MYVIMRC<CR>
+nmap <leader>,g :tabedit $MYGVIMRC<CR>
+
+"Directories for swp files
+set backupdir=~/.vim/backup
+set directory=~/.vim/backup
+
+if has("autocmd")
+  " Source the vimrc file after saving it
+  autocmd! bufwritepost .vimrc source  $MYVIMRC
+  " autocmd! bufwritepost sean_tm_twilight.vim source ~/.vim/colors/sean_tm_twilight.vim
+  autocmd! bufwritepost sean_tm_twilight.vim source ~/.vim/colors/solarized.vim
+
+  " Strip trailing spaces from file
+  "autocmd! bufwrite :%s/\s*$//g
+  autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+endif
+
+
+" Use Node.js for JavaScript interpretation
+let $JS_CMD='node'
+
+" Alignment
+map <Leader>l :Tabularize<space>
+
+" Spelling stuff...
+setlocal spell spelllang=en_gb
+set spell
+map z= ea<C-x>s
+
+" Persistent undo
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=100 "maximum number of changes that can be undone
+set undoreload=100 "maximum number lines to save for undo on a buffer reload
+
+
+
+" The Silver Searcher
+" Ag shortcut...
+map <leader>f y:Ag --literal '<C-R>=expand("<cword>")<CR>'
+vmap <leader>f y:Ag --literal '<C-R>0'<space>
+
+map <leader>b :CtrlPBuffer<cr>
+let g:ctrlp_match_window_reversed = 0
+
+" let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript']
+
+" ctrl p
+let g:ctrlp_root_markers = ['Capfile']
+" let g:ctrlp_max_files = 0
+
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  " let g:ctrlp_use_caching = 0
+endif
+
+
+" let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_custom_ignore = '\v\.(jpeg|jpg|JPG|png)$'
+
+" Delete buffers in Ctrlp buffer mode
+let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
+
+func! MyCtrlPMappings()
+nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
+endfunc
+
+func! s:DeleteBuffer()
+exec "bd" fnamemodify(getline('.')[2:], ':p')
+exec "norm \<F5>"
+endfunc
+
+
+" Show (partial) command in the status line
+set showcmd
+
+" Pipes the output of Ex to a buffer in a new tab...
+function! TabMessage(cmd)
+redir => message
+silent execute a:cmd
+redir END
+tabnew
+silent put=message
+set nomodified
+endfunction
+command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
+
+
+" Qargs populates the args list with the files in the quickfix list...
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+" Building a hash ensures we get each buffer only once
+let buffer_numbers = {}
+for quickfix_item in getqflist()
+  let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+endfor
+return join(values(buffer_numbers))
+endfunction
+
+function! BufferDelete()
+if &modified
+  echohl ErrorMsg
+  echomsg "No write since last change. Not closing buffer."
+  echohl NONE
+else
+  let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+  echohl ErrorMsg
+  echomsg "No write since last change. Not closing buffer."
+  echohl NONE
+else
+  let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+  if s:total_nr_buffers == 1
+    bdelete
+    echo "Buffer deleted. Created new buffer."
+  else
+    bprevious
+    bdelete #
+    echo "Buffer deleted."
+  endif
+endif
+endfunction
+command! -nargs=0 -complete=command BufCleaner call BufferDelete()
+map <esc><BS> :silent BufCleaner<cr>
+
+" Regexps...
+" Change '<word>' to "<word>"
+map <leader>' :%s/\v'([^ ]*)'/"\1"/gc<cr>
+
+au BufNewFile,BufRead *.ldg,*.ledger setf ledger
+au BufNewFile,BufRead *.ampl,*.mod,*.model,*.data set syntax=ampl
+
+let g:ctrlp_prompt_mappings = {
+      \ 'PrtBS()':              ['<c-h>', '<bs>', '<c-]>'],
+      \ 'PrtDelete()':          ['<del>'],
+      \ 'PrtDeleteWord()':      ['<c-w>'],
+      \ 'PrtClear()':           ['<c-u>'],
+      \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+      \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
+      \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+      \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+      \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+      \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+      \ 'PrtHistory(-1)':       ['<c-n>'],
+      \ 'PrtHistory(1)':        ['<c-p>'],
+      \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+      \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+      \ 'AcceptSelection("t")': ['<c-t>'],
+      \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+      \ 'ToggleFocus()':        ['<s-tab>'],
+      \ 'ToggleRegex()':        ['<c-r>'],
+      \ 'ToggleByFname()':      ['<c-d>'],
+      \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+      \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+      \ 'PrtExpandDir()':       ['<tab>'],
+      \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+      \ 'PrtInsert()':          ['<c-\>'],
+      \ 'PrtCurStart()':        ['<c-a>'],
+      \ 'PrtCurEnd()':          ['<c-e>'],
+      \ 'PrtCurLeft()':         [ '<left>', '<c-^>'],
+      \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+      \ 'PrtClearCache()':      ['<F5>'],
+      \ 'PrtDeleteEnt()':       ['<F7>'],
+      \ 'CreateNewFile()':      ['<c-y>'],
+      \ 'MarkToOpen()':         ['<c-z>'],
+      \ 'OpenMulti()':          ['<c-o>'],
+      \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+      \ }
+
+
+" Golang
+ au FileType go nmap <leader>d <Plug>(go-def)
+ au FileType go nmap <leader>D <Plug>(go-doc)
+ au FileType go nmap <leader>v <Plug>(go-vet)
+ au FileType go nmap <leader>i <Plug>(go-info)
+ au FileType go nmap <leader>r <Plug>(go-run)
+ au FileType go nmap <leader>t <Plug>(go-test)
