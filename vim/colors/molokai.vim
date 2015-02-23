@@ -243,6 +243,7 @@ if &t_Co > 255
        hi String          ctermfg=222
        hi Conditional     ctermfg=197               cterm=bold
        hi Constant        ctermfg=141               cterm=bold
+       hi Conceal                     ctermbg=235   cterm=italic
 
        hi DiffDelete      ctermfg=125 ctermbg=233
 
@@ -261,7 +262,7 @@ if &t_Co > 255
 
        hi Statement       ctermfg=197               cterm=bold
        hi Tag             ctermfg=197
-       hi Title           ctermfg=203
+       hi Title           ctermfg=203               cterm=bold
        hi Visual                      ctermbg=238
 
        hi Comment         ctermfg=244 cterm=italic
