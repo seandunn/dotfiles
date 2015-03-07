@@ -249,6 +249,8 @@ setlocal spell spelllang=en_gb
 set spell
 map z= ea<C-x>s
 
+set thesaurus+=~/.vim/thesaurus/mthesaur.txt
+
 " Persistent undo
 set undodir=~/.vim/undodir
 set undofile
@@ -265,9 +267,10 @@ vmap <leader>f y:Ag --literal '<C-R>0'<space>
 map <leader>b :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 0
 
+map <c-y> :CtrlPYankring<cr>
+
 " let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript']
 
-" ctrl p
 let g:ctrlp_root_markers = ['Capfile']
 " let g:ctrlp_max_files = 0
 
@@ -435,3 +438,8 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+" Pandoc
+" pandoc preview
+nmap <leader>pmd :call VimuxRunCommand('pandoc -s ' . bufname("%") . ' -o preview.pdf; open preview.pdf')<CR>
+
