@@ -397,10 +397,41 @@ let g:ctrlp_prompt_mappings = {
       \ }
 
 
-" Golang
- au FileType go nmap <leader>d <Plug>(go-def)
- au FileType go nmap <leader>D <Plug>(go-doc)
- au FileType go nmap <leader>v <Plug>(go-vet)
- au FileType go nmap <leader>i <Plug>(go-info)
- au FileType go nmap <leader>r <Plug>(go-run)
- au FileType go nmap <leader>t <Plug>(go-test)
+" JavaScript...
+" Use Node.js for JavaScript interpretation
+let $JS_CMD='node'
+let g:js_fmt_autosave = 0
+let g:js_fmt_command = "jsfmt"
+
+let g:flow#autoclose=1
+au FileType javascript nmap <leader>i :FlowType<cr>
+
+
+" Golang...
+au FileType go nmap <leader>d <Plug>(go-doc)
+au FileType go nmap <leader>v <Plug>(go-vet)
+au FileType go nmap <leader>i <Plug>(go-info)
+au FileType go nmap <leader>r <Plug>(go-run)
+" au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>ta :wa<CR> :GolangTestCurrentPackage<CR>
+au FileType go nmap <leader>tf :wa<CR> :GolangTestFocused<CR>
+
+" format with goimports instead of gofmt
+let g:go_fmt_options = '-w=false'
+let g:go_fmt_command = "goimports"
+
+au FileType go nmap <leader>I :GoImports<cr>
+au FileType go nmap <leader>R :GoRename<cr>
+
+
+" NeoComplete
+let g:neocomplete#enable_at_startup = 1
+
+" Show syntax highlighting groups for word under cursor
+nmap <F2> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
