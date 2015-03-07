@@ -1,4 +1,4 @@
-vim/bundle/**
+vim/plugged/**
 vim/undodir/**
 vim/backup/**
 vim/undodir/**
