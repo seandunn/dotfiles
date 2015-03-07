@@ -110,4 +110,4 @@ PERL_MB_OPT="--install_base \"/Users/seandunn/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/seandunn/perl5"; export PERL_MM_OPT;
 
 export GOPATH=$HOME/projects/go
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH=$PATH:/usr/local/opt/go/libexec/bin:$HOME/projects/go/bin
