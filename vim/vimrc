@@ -22,8 +22,11 @@ Plug 'ledger/vim-ledger'
 Plug 'matchit.zip'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'rking/ag.vim'
+
+
 Plug 'scrooloose/nerdtree'
-Plug 'sjl/gundo.vim.git'
+Plug 'sjl/gundo.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
@@ -32,6 +35,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
+" Plug 'easymotion/vim-easymotion'
+
+Plug 'editorconfig/editorconfig-vim'
+Plug 'majutsushi/tagbar'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -44,9 +51,13 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang'
 
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'mephux/vim-jsfmt'
-Plug 'facebook/vim-flow'
+Plug 'Shutnik/jshint2.vim'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'pangloss/vim-javascript'
+" Plug 'facebook/vim-flow'
+Plug 'marijnh/tern_for_vim'
 
 call plug#end()
 
@@ -83,6 +94,9 @@ set expandtab
 set virtualedit=block
 set autoindent
 
+" Editorconfig support
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 " Add symbols that count as part of Keywords...
 " set iskeyword+=!,?,@
 set iskeyword+=!,?,@,_
@@ -95,6 +109,17 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+" " Vim-Easymotion
+" " map  / <Plug>(easymotion-sn)
+" " omap / <Plug>(easymotion-tn)
+"
+" " These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" " Without these mappings, `n` & `N` works fine. (These mappings just provide
+" " different highlight method and have some other features )
+" map  n <Plug>(easymotion-next)
+" map  N <Plug>(easymotion-prev)
+
 
 " Tab completion
 set wildmode=list:longest,list:full
@@ -242,7 +267,7 @@ endif
 
 
 " Alignment
-" map <Leader>l :Tabularize<space>
+map <Leader>l :Tabularize<space>
 
 " Spelling stuff...
 setlocal spell spelllang=en_gb
@@ -257,6 +282,8 @@ set undofile
 set undolevels=100 "maximum number of changes that can be undone
 set undoreload=100 "maximum number lines to save for undo on a buffer reload
 
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 " The Silver Searcher
 " Ag shortcut...
@@ -269,6 +296,7 @@ let g:ctrlp_match_window_reversed = 0
 
 map <c-y> :CtrlPYankring<cr>
 
+" let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript']
 " let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript']
 
 let g:ctrlp_root_markers = ['Capfile']
@@ -406,9 +434,20 @@ let $JS_CMD='node'
 let g:js_fmt_autosave = 0
 let g:js_fmt_command = "jsfmt"
 
+let g:jsdoc_default_mapping = 0
+
 let g:flow#autoclose=1
 au FileType javascript nmap <leader>i :FlowType<cr>
 
+" JSHint2
+let jshint2_save = 1
+" show next jshint error
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <esc>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
+
+" show previous jshint error
+" nnoremap <silent><S-F2> :lprevious<CR>
 
 " Golang...
 au FileType go nmap <leader>d <Plug>(go-doc)
@@ -431,13 +470,13 @@ au FileType go nmap <leader>R :GoRename<cr>
 let g:neocomplete#enable_at_startup = 1
 
 " Show syntax highlighting groups for word under cursor
-nmap <F2> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+" nmap <F2> :call <SID>SynStack()<CR>
+" function! <SID>SynStack()
+"     if !exists("*synstack")
+"         return
+"     endif
+"     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
 
 " Pandoc
 " pandoc preview
