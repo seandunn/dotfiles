@@ -161,8 +161,11 @@ if &t_Co > 255
    hi DiffText                    ctermbg=102 cterm=bold
 
    hi Directory       ctermfg=118               cterm=bold
-   hi Error           ctermfg=219 ctermbg=89
-   hi ErrorMsg        ctermfg=199 ctermbg=16    cterm=bold
+   hi Error           ctermfg=219 ctermbg=52
+   hi ErrorMsg        ctermfg=199 ctermbg=52    cterm=bold
+   hi SyntasticWarningSign  ctermfg=124 ctermbg=234 
+   hi SyntasticErrorLine ctermbg=234 cterm=italic
+   hi SyntasticWarningLine ctermbg=234 cterm=italic
    hi Exception       ctermfg=118               cterm=bold
    hi Float           ctermfg=135
    hi FoldColumn      ctermfg=67  ctermbg=none
@@ -195,7 +198,7 @@ if &t_Co > 255
    hi Search          ctermfg=220   ctermbg=0   cterm=italic
 
    " marks column
-   hi SignColumn      ctermfg=118 ctermbg=235
+   hi SignColumn      ctermfg=118 ctermbg=234
    hi SpecialChar     ctermfg=161               cterm=bold
    hi SpecialComment  ctermfg=245               cterm=bold
    hi Special         ctermfg=81
@@ -248,7 +251,7 @@ if &t_Co > 255
        hi DiffDelete      ctermfg=125 ctermbg=233
 
        hi Directory       ctermfg=154               cterm=bold
-       hi Error           ctermfg=222 ctermbg=233
+       hi Error           ctermfg=222 ctermbg=52
        hi Exception       ctermfg=154               cterm=bold
        hi Float           ctermfg=141
        hi Function        ctermfg=154

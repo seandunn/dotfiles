@@ -39,6 +39,7 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'majutsushi/tagbar'
+Plug 'grassdog/tagman.vim'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -53,12 +54,13 @@ Plug 'benmills/vimux-golang'
 
 " Plug 'mxw/vim-jsx'
 Plug 'mephux/vim-jsfmt'
-Plug 'Shutnik/jshint2.vim'
+" Plug 'Shutnik/jshint2.vim'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'pangloss/vim-javascript'
 " Plug 'facebook/vim-flow'
 Plug 'marijnh/tern_for_vim'
 
+Plug 'scrooloose/syntastic'
 call plug#end()
 
 
@@ -245,6 +247,8 @@ let g:airline_symbols.readonly = 'ro'
 let g:airline_symbols.linenr = '⭡'
 
 
+let g:airline#extensions#syntastic#enabled = 1
+
 " Open .vimrc in a new tab
 nmap <leader>,v :tabedit $MYVIMRC<CR>
 nmap <leader>,g :tabedit $MYGVIMRC<CR>
@@ -427,6 +431,18 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
       \ }
 
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
 " JavaScript...
 " Use Node.js for JavaScript interpretation
@@ -437,7 +453,11 @@ let g:js_fmt_command = "jsfmt"
 let g:jsdoc_default_mapping = 0
 
 let g:flow#autoclose=1
-au FileType javascript nmap <leader>i :FlowType<cr>
+au FileType javascript nmap <leader>i :TernType<cr>
+au FileType javascript nmap <leader>d :TernDef<cr>
+au FileType javascript nmap <leader>D :TernDoc<cr>
+au FileType javascript nmap <leader>r :TernRef<cr>
+au FileType javascript nmap <leader>R :TernRename<cr>
 
 " JSHint2
 let jshint2_save = 1
@@ -447,7 +467,7 @@ inoremap <silent><F2> <esc>:lnext<CR>
 vnoremap <silent><F2> :lnext<CR>
 
 " show previous jshint error
-" nnoremap <silent><S-F2> :lprevious<CR>
+nnoremap <silent><S-F2> :lprevious<CR>
 
 " Golang...
 au FileType go nmap <leader>d <Plug>(go-doc)
@@ -482,3 +502,8 @@ let g:neocomplete#enable_at_startup = 1
 " pandoc preview
 nmap <leader>pmd :call VimuxRunCommand('pandoc -s ' . bufname("%") . ' -o preview.pdf; open preview.pdf')<CR>
 
+
+
+" project paths
+set path+=**
+set suffixesadd+=.js
