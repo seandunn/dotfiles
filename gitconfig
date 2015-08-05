@@ -9,6 +9,7 @@
 	diff = auto
 [core]	
 	pager = less -FXRS
+	autocrlf = input
 [git-tmbundle]
 	gitx-path = /usr/local/bin/gitx
 [alias]

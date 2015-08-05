@@ -5,9 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="bureau"
+ZSH_THEME="bureau"
 # ZSH_THEME="seans-bureau"
-ZSH_THEME="seans-bureau"
 # ZSH_THEME="blinks"
 
 # Example aliases
@@ -32,13 +31,14 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew brew-cask osx git golang tmux zsh-syntax-highlighting taskwarrior)
+plugins=(brew brew-cask osx git golang tmux gulp zsh-syntax-highlighting taskwarrior)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/local/mysql/bin:$HOME/bin:$HOME/git-hooks:/usr/local/share/npm/bin:$PATH"
 export PATH=~/.cabal/bin:$PATH
+export PATH=$PATH:/usr/local/apache-maven/apache-maven-3.3.3/bin
 export HOMEBREW_GIT_VIA_HTTP=1
 export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar:$HOME/lib
 export VIMCLOJURE_SERVER_JAR="$HOME/lib/vimclojure/server-2.3.0.jar"
@@ -46,6 +46,7 @@ export VIMCLOJURE_SERVER_JAR="$HOME/lib/vimclojure/server-2.3.0.jar"
 export C_INCLUDE_PATH=/usr/local/include 
 export LIBRARY_PATH=/usr/local/lib 
 export LD_LIBRARY_PATH=/usr/local/lib
+export _JAVA_OPTIONS="-Xmx1g"
 
 bindkey -v
 export EDITOR='vi'
@@ -105,9 +106,6 @@ alias lg='ledger -f ./accounts.ledger --strict'
 setopt interactivecomments
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-PERL_MB_OPT="--install_base \"/Users/seandunn/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/seandunn/perl5"; export PERL_MM_OPT;
 
 export GOPATH=$HOME/projects/go
 export PATH=$PATH:/usr/local/opt/go/libexec/bin:$HOME/projects/go/bin

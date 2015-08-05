@@ -163,9 +163,11 @@ if &t_Co > 255
    hi Directory       ctermfg=118               cterm=bold
    hi Error           ctermfg=219 ctermbg=52
    hi ErrorMsg        ctermfg=199 ctermbg=52    cterm=bold
-   hi SyntasticWarningSign  ctermfg=124 ctermbg=234 
-   hi SyntasticErrorLine ctermbg=234 cterm=italic
-   hi SyntasticWarningLine ctermbg=234 cterm=italic
+   hi SyntasticError        ctermfg=196 ctermbg=52 cterm=underline,italic
+   hi SyntasticWarning      ctermfg=196 ctermbg=52 cterm=underline,italic
+   hi SyntasticWarningSign  ctermfg=196 ctermbg=234 
+   hi SyntasticErrorLine    ctermbg=234              cterm=italic
+   hi SyntasticWarningLine  ctermbg=234              cterm=italic
    hi Exception       ctermfg=118               cterm=bold
    hi Float           ctermfg=135
    hi FoldColumn      ctermfg=67  ctermbg=none
