@@ -6,6 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="bureau"
+# ZSH_THEME="pure"
 # ZSH_THEME="seans-bureau"
 # ZSH_THEME="blinks"
 
@@ -31,7 +32,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew brew-cask osx git golang tmux gulp zsh-syntax-highlighting taskwarrior)
+plugins=(brew brew-cask colored-man git golang gulp man osx taskwarrior themes tmux vi zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
