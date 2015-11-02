@@ -89,8 +89,6 @@ export EDITOR='vi'
 # export KEYTIMEOUT=1
 
 
-export TERM=xterm-256color-italic
-
 export DISABLE_AUTO_TITLE=true
 
 
