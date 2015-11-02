@@ -9,7 +9,7 @@ Plug 'bling/vim-airline'
 Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'shougo/vimproc'
-Plug 'shougo/neocomplete'
+" Plug 'shougo/neocomplete'
 
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
@@ -22,7 +22,9 @@ Plug 'ledger/vim-ledger'
 Plug 'matchit.zip'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'rking/ag.vim'
+
+" Plug 'rking/ag.vim'
+Plug 'mhinz/vim-grepper'
 
 
 Plug 'scrooloose/nerdtree'
@@ -34,6 +36,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+
+Plug 'wellle/targets.vim'
+Plug 'zenorocha/dracula-theme'
 
 Plug 'airblade/vim-gitgutter'
 " Plug 'easymotion/vim-easymotion'
@@ -66,6 +71,18 @@ Plug 'scrooloose/syntastic'
 call plug#end()
 
 
+if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  tnoremap <Esc> <C-\><C-n>
+else
+  if has("mouse_sgr")
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  end
+endif
+
 noremap j gj
 noremap k gk
 map <C-e> :
@@ -77,7 +94,7 @@ set mousehide
 
 " no beeping!
 set vb t_vb=
-set number
+set relativenumber
 set ruler
 
 syntax enable
@@ -170,8 +187,8 @@ if has("autocmd")
 endif
 
 function! s:setupWrapping()
-set wm=2
-set textwidth=72
+  set wm=2
+  set textwidth=72
 endfunction
 
 " make and python use real tabs
@@ -197,7 +214,7 @@ set modelines=10
 if has("gui_running")
   colorscheme sean_tm_twilight
   " colorscheme eddie
-  
+
   set guifont=Menlo:h12
 
   " MacVIM shift+arrow-keys behavior (required in .vimrc)
@@ -218,9 +235,10 @@ else
 
   " let g:molokai_original = 1
   let g:rehash256 = 1
-  colorscheme molokai
+  colorscheme sean_tm_twilight
+  " colorscheme molokai
   let g:airline_powerline_fonts=1
-  let g:airline_theme='molokai'
+  let g:airline_theme='durant'
 
 
   " Copy to the system clipboard
@@ -293,19 +311,27 @@ set undoreload=100 "maximum number lines to save for undo on a buffer reload
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_type_markdown = {
-    \ 'ctagstype' : 'markdown',
-    \ 'kinds' : [
-        \ 'h:Heading_L1',
-        \ 'i:Heading_L2',
-        \ 'k:Heading_L3'
-    \ ]
-\ }
+      \ 'ctagstype' : 'markdown',
+      \ 'kinds' : [
+      \ 'h:Heading_L1',
+      \ 'i:Heading_L2',
+      \ 'k:Heading_L3'
+      \ ]
+      \ }
 
 
 " The Silver Searcher
 " Ag shortcut...
 map <leader>f y:Ag --literal '<C-R>=expand("<cword>")<CR>'
 vmap <leader>f y:Ag --literal '<C-R>0'<space>
+
+" Grepper
+let g:grepper           = {}
+let g:grepper.tools     = ['ag', 'git', 'grep']
+let g:grepper.open      = 1
+let g:grepper.switch    = 1
+let g:grepper.jump      = 0
+let g:grepper.next_tool = '<leader>g'
 
 " CtrlP
 map <leader>b :CtrlPBuffer<cr>
@@ -338,26 +364,31 @@ let g:ctrlp_custom_ignore = '\v\.(jpeg|jpg|JPG|png)$'
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
 
 func! MyCtrlPMappings()
-nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
+  nnoremap <buffer> <silent> <c-@> :call <sid>DeleteBuffer()<cr>
 endfunc
 
 func! s:DeleteBuffer()
-exec "bd" fnamemodify(getline('.')[2:], ':p')
-exec "norm \<F5>"
+  exec "bd" fnamemodify(getline('.')[2:], ':p')
+  exec "norm \<F5>"
 endfunc
 
 
 " Show (partial) command in the status line
 set showcmd
 
+
+" Gitgutter
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
+
 " Pipes the output of Ex to a buffer in a new tab...
 function! TabMessage(cmd)
-redir => message
-silent execute a:cmd
-redir END
-tabnew
-silent put=message
-set nomodified
+  redir => message
+  silent execute a:cmd
+  redir END
+  tabnew
+  silent put=message
+  set nomodified
 endfunction
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 
@@ -365,37 +396,37 @@ command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 " Qargs populates the args list with the files in the quickfix list...
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
 function! QuickfixFilenames()
-" Building a hash ensures we get each buffer only once
-let buffer_numbers = {}
-for quickfix_item in getqflist()
-  let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-endfor
-return join(values(buffer_numbers))
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
 endfunction
 
 function! BufferDelete()
-if &modified
-  echohl ErrorMsg
-  echomsg "No write since last change. Not closing buffer."
-  echohl NONE
-else
-  let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-
-  echohl ErrorMsg
-  echomsg "No write since last change. Not closing buffer."
-  echohl NONE
-else
-  let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-
-  if s:total_nr_buffers == 1
-    bdelete
-    echo "Buffer deleted. Created new buffer."
+  if &modified
+    echohl ErrorMsg
+    echomsg "No write since last change. Not closing buffer."
+    echohl NONE
   else
-    bprevious
-    bdelete #
-    echo "Buffer deleted."
+    let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+    echohl ErrorMsg
+    echomsg "No write since last change. Not closing buffer."
+    echohl NONE
+  else
+    let s:total_nr_buffers = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+    if s:total_nr_buffers == 1
+      bdelete
+      echo "Buffer deleted. Created new buffer."
+    else
+      bprevious
+      bdelete #
+      echo "Buffer deleted."
+    endif
   endif
-endif
 endfunction
 command! -nargs=0 -complete=command BufCleaner call BufferDelete()
 map <esc><BS> :silent BufCleaner<cr>
@@ -504,7 +535,7 @@ au FileType go nmap <leader>R :GoRename<cr>
 let g:WMGraphviz_dot = '/usr/local/bin/dot'
 
 " NeoComplete
-let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_at_startup = 1
 
 " Show syntax highlighting groups for word under cursor
 " nmap <F2> :call <SID>SynStack()<CR>

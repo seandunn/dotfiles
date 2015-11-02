@@ -29,8 +29,11 @@ hi Folded  guifg=#504c51 guibg=#151515 gui=bold
 hi FoldColumn guifg=#828282 guibg=#151515
 
 
+hi TabLineFill     guifg=#121314 guibg=#121314
+hi TabLine         guibg=#121314 guifg=#808080 gui=none
 
-hi Normal  guifg=#e0e0e0 guibg=#202020 gui=NONE
+" hi Normal  guifg=#e0e0e0 guibg=#202020 gui=NONE
+hi Normal  guifg=#e0e0e0 gui=NONE
 hi Boolean  guifg=#cf6a4c guibg=NONE gui=NONE
 hi Character  guifg=#cf6a4c guibg=NONE gui=NONE
 hi Comment  guifg=#696969 guibg=NONE gui=italic
