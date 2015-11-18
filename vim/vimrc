@@ -23,8 +23,7 @@ Plug 'matchit.zip'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'nelstrom/vim-visual-star-search'
 
-" Plug 'rking/ag.vim'
-Plug 'mhinz/vim-grepper'
+Plug 'rking/ag.vim'
 
 
 Plug 'scrooloose/nerdtree'
@@ -62,7 +61,21 @@ Plug 'benmills/vimux-golang'
 Plug 'mephux/vim-jsfmt'
 " Plug 'Shutnik/jshint2.vim'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
+" JS syntax, supports ES6
+Plug 'othree/yajs.vim', {
+\   'for': ['javascript']
+\ }
+" Better indentation
+Plug 'gavocanov/vim-js-indent', {
+\   'for': ['javascript']
+\ }
+
+" JS syntax for common libraries
+Plug 'othree/javascript-libraries-syntax.vim', {
+\   'for': ['javascript']
+\ }
+
 " Plug 'facebook/vim-flow'
 Plug 'marijnh/tern_for_vim'
 Plug 'moll/vim-node'
@@ -235,8 +248,8 @@ else
 
   " let g:molokai_original = 1
   let g:rehash256 = 1
-  colorscheme sean_tm_twilight
-  " colorscheme molokai
+  " colorscheme sean_tm_twilight
+  colorscheme molokai
   let g:airline_powerline_fonts=1
   let g:airline_theme='durant'
 
@@ -487,6 +500,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
 
 " JavaScript...
 " Use Node.js for JavaScript interpretation
@@ -502,18 +516,6 @@ au FileType javascript nmap <leader>d :TernDef<cr>
 au FileType javascript nmap <leader>D :TernDoc<cr>
 au FileType javascript nmap <leader>r :TernRef<cr>
 au FileType javascript nmap <leader>R :TernRename<cr>
-
-" JSHint2
-let jshint2_save = 1
-" show next jshint error
-nnoremap <silent><§> :lnext<CR>
-inoremap <silent><§> <esc>:lnext<CR>
-vnoremap <silent><§> :lnext<CR>
-
-" show previous jshint error
-nnoremap <silent><±> :lprevious<CR>
-inoremap <silent><±> <esc>:lprevious<CR>
-vnoremap <silent><±> :lprevious<CR>
 
 " Golang...
 au FileType go nmap <leader>d <Plug>(go-doc)
