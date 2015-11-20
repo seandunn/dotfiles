@@ -10,6 +10,7 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'shougo/vimproc'
 " Plug 'shougo/neocomplete'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
@@ -37,10 +38,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 Plug 'wellle/targets.vim'
+Plug 'Raimondi/delimitMate'
 Plug 'zenorocha/dracula-theme'
 
 Plug 'airblade/vim-gitgutter'
-" Plug 'easymotion/vim-easymotion'
+Plug 'KabbAmine/vCoolor.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'majutsushi/tagbar'
@@ -167,7 +169,10 @@ set wildchar=<Tab> wildmenu wildmode=full
 set laststatus=2
 
 " Splits should be created in the same way as every other gui!
-set fillchars=diff:⣿,vert:│
+set enc=utf-8
+" set fillchars=diff:⣿,vert:\│
+" set fillchars=diff:⣿,vert:\│
+set fillchars=vert:\│
 set splitright
 set splitbelow
 
