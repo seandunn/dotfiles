@@ -82,7 +82,8 @@ Plug 'othree/javascript-libraries-syntax.vim', {
 Plug 'marijnh/tern_for_vim'
 Plug 'moll/vim-node'
 
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 call plug#end()
 
 
@@ -376,7 +377,7 @@ endif
 
 
 " let g:ctrlp_switch_buffer = 'Et'
-let g:ctrlp_custom_ignore = '\v\.(jpeg|jpg|JPG|png)$'
+let g:ctrlp_custom_ignore = '\v\.(jpeg|jpg|JPG|png|node_modules)$'
 
 " Delete buffers in Ctrlp buffer mode
 let g:ctrlp_buffer_func = { 'enter': 'MyCtrlPMappings' }
@@ -493,19 +494,29 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
       \ }
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" " Syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" let g:syntastic_error_symbol = "•"
+" let g:syntastic_warning_symbol = "•"
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 2
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_javascript_checkers = ['eslint']
 
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
+" Neomake
+autocmd! BufWritePost,BufEnter * Neomake
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
+let g:neomake_javascript_jscs_maker = {
+    \ 'exe': 'jscs',
+    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m',
+    \ }
+let g:neomake_javascript_enabled_makers = ['jscs']
 
 " JavaScript...
 " Use Node.js for JavaScript interpretation

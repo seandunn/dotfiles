@@ -1,1 +1,1 @@
-/Users/seandunn/.vimrc
+/Users/seandunn/.dotfiles/vim/vimrc
