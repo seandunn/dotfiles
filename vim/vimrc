@@ -5,29 +5,45 @@ filetype off                  " required
 " Switching to vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'bling/vim-airline'
+Plug 'benekastah/neomake'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 Plug 'dhruvasagar/vim-table-mode'
 
-Plug 'shougo/vimproc'
-" Plug 'shougo/neocomplete'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'fatih/vim-go'
+Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
 Plug 'kana/vim-textobj-user'
+Plug 'tommcdo/vim-exchange'
+
+" Plug 'kassio/neoterm'
+Plug 'hkupty/nvimux'
 
 Plug 'kien/ctrlp.vim'
 Plug 'sgur/ctrlp-extensions.vim'
 
+" Plug 'chrisbra/csv.vim'
 Plug 'ledger/vim-ledger'
 Plug 'matchit.zip'
+
 Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'tpope/vim-rails'
+
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'romainl/vim-qf'
+Plug 'dylon/vim-antlr'
+" Plug 'ElmCast/elm-vim'
+" Plug 'luochen1990/rainbow'
+" let g:rainbow_active = 1
 
 Plug 'rking/ag.vim'
 
 
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tomtom/tlib_vim'
@@ -39,59 +55,75 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'wellle/targets.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'zenorocha/dracula-theme'
+
+Plug 'zandrmartin/vim-distill'
+" Plug 'hkupty/timeshift.vim'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'KabbAmine/vCoolor.vim'
+Plug 'Rykka/colorv.vim'
+
+Plug 'AlessandroYorba/Sierra'
+Plug 'raphamorim/lucario'
+Plug 'rakr/vim-two-firewatch'
+Plug 'jacoborus/tender.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'majutsushi/tagbar'
-Plug 'grassdog/tagman.vim'
+" Plug 'grassdog/tagman.vim'
 
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 Plug 'wannesm/wmgraphviz.vim'
 
+Plug 'elixir-lang/vim-elixir'
+Plug 'thinca/vim-ref'
+Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
-Plug 'sjl/vitality.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
-Plug 'benmills/vimux-golang'
+" JavaScript
+Plug 'millermedeiros/vim-esformatter'
+Plug 'othree/jspc.vim'
 
-" Plug 'mxw/vim-jsx'
-Plug 'mephux/vim-jsfmt'
-" Plug 'Shutnik/jshint2.vim'
-Plug 'heavenshell/vim-jsdoc'
-" Plug 'pangloss/vim-javascript'
-" JS syntax, supports ES6
-Plug 'othree/yajs.vim', {
-\   'for': ['javascript']
-\ }
 " Better indentation
 Plug 'gavocanov/vim-js-indent', {
 \   'for': ['javascript']
 \ }
 
 " JS syntax for common libraries
-Plug 'othree/javascript-libraries-syntax.vim', {
-\   'for': ['javascript']
-\ }
+" Plug 'othree/javascript-libraries-syntax.vim', {
+" \   'for': ['javascript']
+" \ }
 
-" Plug 'facebook/vim-flow'
-Plug 'marijnh/tern_for_vim'
-Plug 'moll/vim-node'
+Plug 'facebook/vim-flow'
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+" Plug 'carlitux/deoplete-ternjs'
+" Plug 'moll/vim-node'
 
-" Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake'
 call plug#end()
 
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  tnoremap <Esc> <C-\><C-n>
+  tnoremap <Esc><Esc> <C-\><C-n>
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " C-h maps to <BS> on OS X
+  nnoremap <BS> <C-w>h
+
+  tnoremap <C-l> <C-\><C-n><C-w>l
+  nnoremap <C-l> <C-w>l
+
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  nnoremap <C-j> <C-w>j
+
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  nnoremap <C-k> <C-w>k
+
+  tnoremap <C-e> <C-\><C-n>:
 else
+  set t_Co=256
   if has("mouse_sgr")
     set ttymouse=sgr
   else
@@ -110,7 +142,7 @@ set mousehide
 
 " no beeping!
 set vb t_vb=
-set relativenumber
+set number
 set ruler
 
 syntax enable
@@ -127,6 +159,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set showbreak=↪
 " set list listchars=tab:\ \ ,trail:·
 set virtualedit=block
 set autoindent
@@ -140,6 +173,8 @@ set iskeyword+=?,@,_
 
 " Code folding
 set nofoldenable
+autocmd FileType javascript,typescript,css,scss,json setlocal foldmethod=marker
+autocmd FileType javascript,typescript,css,scss,json setlocal foldmarker={,}
 
 " Searching
 set hlsearch
@@ -191,6 +226,27 @@ let NERDTreeIgnore=['\.rbc$', '\~$']
 let NERDTreeMapOpenExpl="E"
 map <Leader>n :NERDTreeToggle<CR>
 
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', 'none')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#6699CC', 'none')
+call NERDTreeHighlightFile('config', 'yellow', 'none', '#d8a235', 'none')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', '#d8a235', 'none')
+call NERDTreeHighlightFile('json', 'green', 'none', '#d8a235', 'none')
+call NERDTreeHighlightFile('html', 'yellow', 'none', '#d8a235', 'none')
+call NERDTreeHighlightFile('css', 'cyan', 'none', '#5486C0', 'none')
+call NERDTreeHighlightFile('scss', 'cyan', 'none', '#5486C0', 'none')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', 'none')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', 'none')
+call NERDTreeHighlightFile('exs', 'Red', 'none', '#ffa500', 'none')
+call NERDTreeHighlightFile('ts', 'Blue', 'none', '#6699cc', 'none')
+call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitconfig', 'black', 'none', '#686868', 'none')
+call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#7F7F7F', 'none')
 
 " Netrw Config
 let g:netrw_preview=1
@@ -219,6 +275,7 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
 
 " md, markdown, and mk are markdown and define buffer-local preview
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupWrapping()
+au BufRead,BufNewFile *.{html} set ft=eruby
 
 au BufRead,BufNewFile *.txt call s:setupWrapping()
 
@@ -231,8 +288,7 @@ set modelines=10
 
 " Default color scheme
 if has("gui_running")
-  colorscheme sean_tm_twilight
-  " colorscheme eddie
+  colorscheme tender
 
   set guifont=Menlo:h12
 
@@ -246,18 +302,31 @@ if has("gui_running")
   set relativenumber
 
 else
-  set t_Co=256
+  set termguicolors
   set background=dark
-  let g:solarized_termtrans = 1
-  let g:solarized_italic=1
-  " colorscheme solarized
 
-  " let g:molokai_original = 1
-  let g:rehash256 = 1
-  " colorscheme sean_tm_twilight
-  colorscheme molokai
-  let g:airline_powerline_fonts=1
-  let g:airline_theme='durant'
+  " let g:airline_powerline_fonts=1
+  " let g:airline_theme='hybrid'
+
+  " let g:two_firewatch_italics=1
+  " colorscheme distill
+
+  " let g:airline_theme='twofirewatch'
+  " colorscheme two-firewatch
+
+  " enable tender airline theme
+  " let g:tender_airline = 1
+
+  " if !exists('g:airline_symbols')
+  "   let g:airline_symbols = {}
+  " endif
+  "
+  " let g:airline_symbols.branch = ''
+
+  " set airline theme
+  " let g:airline_theme = 'tender'
+  colorscheme tender
+  " colorscheme tendercontrast
 
 
   " Copy to the system clipboard
@@ -272,23 +341,6 @@ set cursorline
 " Move line highlighting with window focus
 autocmd WinEnter * set cursorline
 autocmd WinLeave * set nocursorline
-
-
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-" old vim-powerline symbols
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '│'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '│'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = 'ro'
-let g:airline_symbols.linenr = '⭡'
-
-
-let g:airline#extensions#syntastic#enabled = 1
 
 " Open .vimrc in a new tab
 nmap <leader>,v :tabedit $MYVIMRC<CR>
@@ -317,7 +369,6 @@ map <Leader>l :Tabularize<space>
 " Spelling stuff...
 setlocal spell spelllang=en_gb
 set spell
-map z= ea<C-x>s
 
 set thesaurus+=~/.vim/thesaurus/mthesaur.txt
 
@@ -494,37 +545,32 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
       \ }
 
-" " Syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_error_symbol = "•"
-" let g:syntastic_warning_symbol = "•"
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 2
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_javascript_checkers = ['eslint']
 
 " Neomake
 autocmd! BufWritePost,BufEnter * Neomake
 
-let g:neomake_javascript_jscs_maker = {
-    \ 'exe': 'jscs',
-    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
-    \ 'errorformat': '%f: line %l\, col %c\, %m',
-    \ }
-let g:neomake_javascript_enabled_makers = ['jscs']
+let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_open_list = 1
+" let g:neomake_javascript_eslint_maker = {
+"     \ 'args': ['--no-color', '--format', 'compact', '--config', '~/.eslintrc.json'],
+"     \ 'errorformat': '%f: line %l\, col %c\, %m'
+"     \ }
 
 " JavaScript...
 " Use Node.js for JavaScript interpretation
 let $JS_CMD='node'
-let g:js_fmt_autosave = 0
-let g:js_fmt_command = "jsfmt"
+let g:jsx_ext_required = 0
 
-let g:jsdoc_default_mapping = 0
+function! JscsFix()
+  " Reformat code according to the Jscs airbnb present unless a .jscsrc file
+  " is present.
+  let l:winview = winsaveview()
+  % ! jscs --fix --preset=airbnb
+  call winrestview(l:winview)
+endfunction
+command! JscsFix :call JscsFix()
+au FileType javascript nmap <leader>j :JscsFix<CR>
+
 
 let g:flow#autoclose=1
 au FileType javascript nmap <leader>i :TernType<cr>
@@ -552,8 +598,44 @@ au FileType go nmap <leader>R :GoRename<cr>
 " Graphviz
 let g:WMGraphviz_dot = '/usr/local/bin/dot'
 
+" " Neoterm/nvimux
+" let g:nvimux_prefix='<C-a>'
+" set statusline+=%#NeotermTestRunning#%{neoterm#test#status('running')}%*
+" set statusline+=%#NeotermTestSuccess#%{neoterm#test#status('success')}%*
+" set statusline+=%#NeotermTestFailed#%{neoterm#test#status('failed')}%*
+
+" Deoplete
+
+let g:deoplete#enable_at_startup = 1
+" if !exists('g:deoplete#omni#input_patterns')
+"   let g:deoplete#omni#input_patterns = {}
+" endif
+
+" let g:deoplete#disable_auto_complete = 1
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" " omnifuncs
+" augroup omnifuncs
+"   autocmd!
+"   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" augroup end
+"
+" " tern
+" " let g:tern_show_argument_hints = 'on_hold'
+" " let g:tern_show_signature_in_pum = 1
+" " autocmd FileType javascript setlocal omnifunc=tern#Complete
+" "
+" " deoplete tab-complete
+" " inoremap <silent><expr> <Tab> deoplete#mappings#manual_complete()
+" " ,<Tab> for regular tab
+" " inoremap <Leader><Tab> <Space><Space>
+" " tern
+" autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
 " NeoComplete
 " let g:neocomplete#enable_at_startup = 1
+
 
 " Show syntax highlighting groups for word under cursor
 " nmap <F2> :call <SID>SynStack()<CR>
@@ -569,7 +651,35 @@ let g:WMGraphviz_dot = '/usr/local/bin/dot'
 " nmap <leader>pmd :call VimuxRunCommand('pandoc -s ' . bufname("%") . ' -o preview.pdf; open preview.pdf')<CR>
 
 
+" Vim-Table-Mode
+" make tables Markdown compatible
+let g:table_mode_corner="|"
 
 " project paths
 set path+=**
 set suffixesadd+=.js
+
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm-which')
+    let l:eslint = split(system('npm-which eslint'))[0]
+    return 0
+  endif
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+
+autocmd FileType javascript :call NeomakeESlintChecker()
+
+au BufRead,BufNewFile *.g set filetype=antlr3
+au BufRead,BufNewFile *.g4 set filetype=antlr4

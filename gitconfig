@@ -1,6 +1,6 @@
 [user]
 	name = Sean Dunn
-	email = sean.dunn@anaplan.com
+	email = sean@morebongo.com
 [core]
 	excludesfile = ~/.cvsignore
 [color]
@@ -28,3 +28,5 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+[credential]
+	helper = osxkeychain

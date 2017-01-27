@@ -100,7 +100,8 @@ hi Typedef         guifg=#66D9EF
 hi Type            guifg=#66D9EF               gui=none
 hi Underlined      guifg=#808080               gui=underline
 
-hi VertSplit  guifg=#393939 guibg=#1b1b1b gui=NONE
+" hi VertSplit  guifg=#393939 guibg=#1b1b1b gui=NONE
+hi VertSplit  guifg=#1b1b1b guibg=#1b1b1b gui=NONE
 hi VisualNOS                     guibg=#403D3D
 hi Visual                        guibg=#403D3D
 hi WarningMsg      guifg=#FFFFFF guibg=#333333 gui=bold
