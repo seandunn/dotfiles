@@ -10,23 +10,9 @@
 [core]	
 	pager = less -FXRS
 	autocrlf = input
-[git-tmbundle]
-	gitx-path = /usr/local/bin/gitx
 [alias]
 	lg = log --graph --pretty=format:'%C(bold blue)%h%Creset -%C(bold red)%d%Creset %s \n%C(blue)(%cr) %Creset%C(blue)<%an>%Creset\n' --abbrev-commit --date=relative
 
   # git stash-rename <stash> [save options] [<message>]
 	stash-rename = "!_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git diff-index --quiet HEAD; s=$?; [ $s != 0 ] && git stash save \"tmp stash from stash-rename\"; git stash apply $rev && shift && git stash save \"$@\" && [ $s != 0 ] && git stash pop stash@{1}; }; _"
 
-[url "git://github.com/"]
-  insteadOf = gh:
-[url "git@github.com:"]
-  insteadOf = ghs:
-
-[merge]
-  tool = opendiff
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
-[credential]
-	helper = osxkeychain
